@@ -1,4 +1,4 @@
-// Advent of Code Day 1, Puzzle 2: 
+// Advent of Code Day 2, Puzzle 1: 
 //  🎄 visit https://adventofcode.com/2023/day/2/input for the input data
 //  🎄 pop the below code in your browser console 
 //  🎄 press enter!
