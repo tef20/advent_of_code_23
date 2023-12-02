@@ -5,13 +5,15 @@
 
 // regular expression using positive look ahead to handle cases where values overlap
 // eg. "oneight" includes "one" and "eight": (on(e)ight)!
-// result is also grouped 
-const re = /(?=([0-9]|one|two|three|four|five|six|seven|eight|nine))/g;
+// resulting group also captured 
+// use of lazy and greedy matching to isolate first and last groups
+const numPattern = "(?=([0-9]|one|two|three|four|five|six|seven|eight|nine))";
+const matchFirstAndLast = new RegExp(`^.*?${numPattern}.*${numPattern}`);
 
 const nums = {
-	one: 1, two: 2, three: 3, 
-	four: 4, five: 5, six: 6, 
-	seven: 7, eight: 8, nine: 9
+  one: 1, two: 2, three: 3, 
+  four: 4, five: 5, six: 6, 
+  seven: 7, eight: 8, nine: 9
 };
 
 // console must be open on the input data page linked above!
@@ -22,14 +24,7 @@ const sum = document
   .trim()
   .split(/\n/)
   .reduce((acc, cur) => {
-    // object destructuring hack to get first and last values of an array
-    const {
-      0: {1: first}, 
-      // get the array length 
-      length: len, 
-      // use the length to calculate last index
-      [len - 1]: {1: last}
-    } = [...cur.matchAll(re)];
+   [, first, last] = cur.match(matchFirstAndLast);
 
     // first and last nums are concatenated 
     // if num is a word, it will be mapped using the nums object, else use the digit
