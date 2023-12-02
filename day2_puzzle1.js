@@ -6,29 +6,29 @@
 const colours = { red: 12, green: 13, blue: 14 };
 
 const sumOfMatchingIds = document
-	.querySelector('pre')
-	.textContent
-	.trim()
-	.split(/\n/)
-	.reduce((acc, cur, ind) => {
-  	const [, sample] = cur.split(": ");
+  .querySelector('pre')
+  .textContent
+  .trim()
+  .split(/\n/)
+  .reduce((acc, cur, ind) => {
+    const [, sample] = cur.split(": ");
     
     // matchAll returns an iterator that produces arrays containing the 
     // match followed by the capture groups
-		const draws = sample.matchAll(/(\d+) (\w+)/g);
+    const draws = sample.matchAll(/(\d+) (\w+)/g);
 		
-		let draw = draws.next();
+    let draw = draws.next();
 
-		while (!draw.done) {
-			const [, count, colour] = draw.value;
+    while (!draw.done) {
+      const [, count, colour] = draw.value;
       
       // if invalid, quit iteration for the whole sample
-			if (+count > colours[colour]) return acc;
+      if (+count > colours[colour]) return acc;
 
-			draw = draws.next();
-		}
+      draw = draws.next();
+    }
 
-		return acc + ind + 1;
-	}, 0);
+    return acc + ind + 1;
+  }, 0);
 
 console.log(`*** Result: ${sumOfMatchingIds} ***);
